@@ -1,6 +1,5 @@
 package com.phase2.homeService.entities;
 
-import java.sql.Timestamp;
 import com.phase2.homeService.entities.base.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

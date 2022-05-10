@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("professional")
+@RequestMapping("/professional")
 public class ProfessionalController {
     private ProfessionalServiceImple professionalService;
     private Utility utility;
@@ -23,7 +23,7 @@ public class ProfessionalController {
         this.utility = utility;
     }
 
-    @PostMapping("save")
+    @PostMapping("/save")
     public ResponseEntity<Professional> save(@RequestBody Professional professional) {
         try {
             System.out.println(professional.getLastName());
@@ -43,4 +43,6 @@ public class ProfessionalController {
         }
         return null;
     }
+
+
 }

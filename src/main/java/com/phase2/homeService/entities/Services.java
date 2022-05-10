@@ -38,4 +38,8 @@ public class Services extends BaseEntity<Integer> {
         this.serviceName = serviceName;
         this.lowestPrice = lowestPrice;
     }
+
+    public Services(String serviceName) {
+        this.serviceName = serviceName;
+    }
 }
