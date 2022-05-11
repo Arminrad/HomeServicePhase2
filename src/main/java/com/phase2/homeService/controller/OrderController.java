@@ -1,9 +1,11 @@
 package com.phase2.homeService.controller;
 
+import com.phase2.homeService.dto.OrderDto;
 import com.phase2.homeService.entities.Order;
 import com.phase2.homeService.entities.Services;
-import com.phase2.homeService.entities.enumeration.OrderStatus;
 import com.phase2.homeService.service.implementations.OrderServiceImple;
+import com.phase2.homeService.service.implementations.ServicesServiceImple;
+import org.dozer.DozerBeanMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,16 +15,24 @@ import java.util.List;
 @RequestMapping("/order")
 public class OrderController {
 
-    private OrderServiceImple orderService;
+    private final OrderServiceImple orderService;
+    private final ServicesServiceImple serviceService;
 
-    public OrderController(OrderServiceImple orderService) {
+    public OrderController(OrderServiceImple orderService, ServicesServiceImple serviceService) {
         this.orderService = orderService;
+        this.serviceService = serviceService;
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Order> save(@RequestBody Order order) {
-        order.setOrderStatus(OrderStatus.WAITING_FOR_PROFESSIONAL_OFFER);
-        return ResponseEntity.ok(orderService.save(order));
+    public ResponseEntity<Order> save(@RequestBody OrderDto orderDto) {
+        Services service = serviceService.getById(orderDto.getService_id());
+        DozerBeanMapper mapper = new DozerBeanMapper();
+        Order order = mapper.map(orderDto, Order.class);
+        order.setService(service);
+        System.out.println(order);
+        //orderDto.setOrderStatus(OrderStatus.WAITING_FOR_PROFESSIONAL_OFFER);
+        //return ResponseEntity.ok(orderService.save(order));
+        return null;
     }
 
     @GetMapping("/getByCityAndService")

@@ -28,6 +28,7 @@ public class Order extends BaseEntity<Integer> {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    @Column(nullable = false)
     private String city;
     private String street;
     private String alley;
