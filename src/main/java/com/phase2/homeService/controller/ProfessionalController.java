@@ -1,8 +1,13 @@
 package com.phase2.homeService.controller;
 
+import com.phase2.homeService.dto.OfferDto;
+import com.phase2.homeService.dto.ProfessionalDto;
+import com.phase2.homeService.entities.Offer;
 import com.phase2.homeService.entities.Professional;
 import com.phase2.homeService.service.implementations.ProfessionalServiceImple;
 import com.phase2.homeService.util.Utility;
+import org.dozer.DozerBeanMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,33 +21,22 @@ import java.util.Arrays;
 @RequestMapping("/professional")
 public class ProfessionalController {
     private ProfessionalServiceImple professionalService;
+    private final DozerBeanMapper mapper;
+    private final ModelMapper modelMapper;
     private Utility utility;
 
     public ProfessionalController(ProfessionalServiceImple professionalService, Utility utility) {
         this.professionalService = professionalService;
+        this.mapper = new DozerBeanMapper();
+        this.modelMapper = new ModelMapper();
         this.utility = utility;
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Professional> save(@RequestBody Professional professional) {
-        try {
-            System.out.println(professional.getLastName());
-            System.out.println(professional.getFirstName());
-            System.out.println(professional.getEmail());
-            System.out.println(professional.getCity());
-            try {
-                System.out.println(Arrays.toString(professional.getImage()));
-            } catch (Exception e) {
-                System.out.println("farzad");
-            }
-/*            byte[] image = utility.setImage(professional.getImage());
-            professional.setImage(image);*/
-            return ResponseEntity.ok(professionalService.save(professional));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public ResponseEntity<ProfessionalDto> save(@RequestBody ProfessionalDto professionalDto) {
+        Professional professional = mapper.map(professionalDto, Professional.class);
+        Professional savedProfessional = professionalService.save(professional);
+        ProfessionalDto savedProfessionalDto = modelMapper.map(savedProfessional, ProfessionalDto.class);
+        return ResponseEntity.ok(savedProfessionalDto);
     }
-
-
 }

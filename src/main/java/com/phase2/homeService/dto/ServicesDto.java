@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 @Builder
 @ToString
 
-public class ServiceDto {
+public class ServicesDto {
     private Integer id;
     private String serviceName;
     @OneToOne

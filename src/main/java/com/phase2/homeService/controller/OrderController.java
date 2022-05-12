@@ -1,11 +1,15 @@
 package com.phase2.homeService.controller;
 
+import com.phase2.homeService.dto.OfferDto;
 import com.phase2.homeService.dto.OrderDto;
+import com.phase2.homeService.entities.Offer;
 import com.phase2.homeService.entities.Order;
 import com.phase2.homeService.entities.Services;
+import com.phase2.homeService.entities.enumeration.OrderStatus;
 import com.phase2.homeService.service.implementations.OrderServiceImple;
 import com.phase2.homeService.service.implementations.ServicesServiceImple;
 import org.dozer.DozerBeanMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,22 +21,25 @@ public class OrderController {
 
     private final OrderServiceImple orderService;
     private final ServicesServiceImple serviceService;
+    private final DozerBeanMapper mapper;
+    private final ModelMapper modelMapper;
 
     public OrderController(OrderServiceImple orderService, ServicesServiceImple serviceService) {
         this.orderService = orderService;
         this.serviceService = serviceService;
+        this.mapper = new DozerBeanMapper();
+        this.modelMapper = new ModelMapper();
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Order> save(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<OrderDto> save(@RequestBody OrderDto orderDto) {
         Services service = serviceService.getById(orderDto.getService_id());
-        DozerBeanMapper mapper = new DozerBeanMapper();
         Order order = mapper.map(orderDto, Order.class);
         order.setService(service);
-        System.out.println(order);
-        //orderDto.setOrderStatus(OrderStatus.WAITING_FOR_PROFESSIONAL_OFFER);
-        //return ResponseEntity.ok(orderService.save(order));
-        return null;
+        order.setOrderStatus(OrderStatus.WAITING_FOR_PROFESSIONAL_OFFER);
+        Order savedOrder = orderService.save(order);
+        OrderDto savedOrderDto = modelMapper.map(savedOrder, OrderDto.class);
+        return ResponseEntity.ok(savedOrderDto);
     }
 
     @GetMapping("/getByCityAndService")
