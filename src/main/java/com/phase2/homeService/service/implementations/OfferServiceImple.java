@@ -7,6 +7,8 @@ import com.phase2.homeService.repository.OrderRepository;
 import com.phase2.homeService.service.interfaces.OfferService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class OfferServiceImple implements OfferService {
@@ -28,5 +30,10 @@ public class OfferServiceImple implements OfferService {
         offerRepository.save(offer);
         orderRepository.save(order);
         return true;
+    }
+
+    @Override
+    public List<Offer> getOrderOffers(Integer id) {
+        return offerRepository.getOrderOffers(id);
     }
 }

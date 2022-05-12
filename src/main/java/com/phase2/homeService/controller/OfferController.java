@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/offer")
 public class OfferController {
@@ -43,5 +46,17 @@ public class OfferController {
         Offer savedOffer = offerService.save(offer);
         OfferDto savedOfferDto = modelMapper.map(savedOffer, OfferDto.class);
         return ResponseEntity.ok(savedOfferDto);
+    }
+
+    @PostMapping("/getOrderOffers")
+    public ResponseEntity<List<OfferDto>> getOrderOffers(@RequestBody OfferDto offerDto) {
+        Order order = orderService.getById(offerDto.getOrder_id());
+        List<Offer> offerList = offerService.getOrderOffers(order.getId());
+        List<OfferDto> returnedOffers = new ArrayList<>();
+        for (Offer o:offerList) {
+            OfferDto returnedOfferDto = modelMapper.map(o, OfferDto.class);
+            returnedOffers.add(returnedOfferDto);
+        }
+        return ResponseEntity.ok(returnedOffers);
     }
 }

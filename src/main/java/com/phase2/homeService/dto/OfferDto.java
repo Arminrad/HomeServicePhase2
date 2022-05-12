@@ -23,4 +23,5 @@ public class OfferDto {
     private Date startTime;
     private Integer order_id;
     private Integer professional_id;
+    private String orderedBy;
 }
