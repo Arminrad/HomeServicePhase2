@@ -3,7 +3,6 @@ import com.phase2.homeService.entities.enumeration.UserStatus;
 import com.phase2.homeService.entities.enumeration.UserType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.util.Date;
 

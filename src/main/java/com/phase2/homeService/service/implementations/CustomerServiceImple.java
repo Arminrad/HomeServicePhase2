@@ -23,4 +23,9 @@ public class CustomerServiceImple implements CustomerService {
     public Customer findByEmail(String email) {
         return customerRepository.findByEmail(email);
     }
+
+    @Override
+    public Customer getById(Integer id) {
+        return customerRepository.getById(id);
+    }
 }

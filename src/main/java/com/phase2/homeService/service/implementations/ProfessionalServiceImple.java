@@ -5,6 +5,8 @@ import com.phase2.homeService.repository.ProfessionalRepository;
 import com.phase2.homeService.service.interfaces.ProfessionalService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ProfessionalServiceImple implements ProfessionalService {
@@ -23,5 +25,15 @@ public class ProfessionalServiceImple implements ProfessionalService {
     @Override
     public Professional findByEmail(String email) {
         return professionalRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<Professional> waitingForConfirmationProfessionals() {
+        return professionalRepository.waitingForConfirmationProfessionals();
+    }
+
+    @Override
+    public Professional getById(Integer id) {
+        return professionalRepository.getById(id);
     }
 }
