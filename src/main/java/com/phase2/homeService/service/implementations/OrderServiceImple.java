@@ -7,6 +7,7 @@ import com.phase2.homeService.service.interfaces.OrderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -24,8 +25,8 @@ public class OrderServiceImple implements OrderService {
     }
 
     @Override
-    public List<Order> getByCityAndServiceAndStatus(String city, String serviceName) {
-        return orderRepository.getByCityAndServiceAndStatus(city, serviceName);
+    public List<Order> getByCityAndServiceAndStatus(String city, Set<Services> services) {
+        return orderRepository.getByCityAndServiceAndStatus(city, services);
     }
 
     @Override

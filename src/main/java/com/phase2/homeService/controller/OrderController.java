@@ -1,19 +1,25 @@
 package com.phase2.homeService.controller;
 
 import com.phase2.homeService.dto.OrderDto;
+import com.phase2.homeService.dto.ProfessionalDto;
 import com.phase2.homeService.entities.Customer;
 import com.phase2.homeService.entities.Order;
+import com.phase2.homeService.entities.Professional;
 import com.phase2.homeService.entities.Services;
 import com.phase2.homeService.entities.enumeration.OrderStatus;
 import com.phase2.homeService.service.implementations.CustomerServiceImple;
 import com.phase2.homeService.service.implementations.OrderServiceImple;
+import com.phase2.homeService.service.implementations.ProfessionalServiceImple;
 import com.phase2.homeService.service.implementations.ServicesServiceImple;
+import org.aspectj.weaver.ast.Or;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/order")
@@ -22,15 +28,18 @@ public class OrderController {
     private final OrderServiceImple orderService;
     private final ServicesServiceImple serviceService;
     private final CustomerServiceImple customerService;
+    private final ProfessionalServiceImple professionalService;
     private final DozerBeanMapper mapper;
     private final ModelMapper modelMapper;
 
     public OrderController(OrderServiceImple orderService,
                            ServicesServiceImple serviceService,
-                           CustomerServiceImple customerService) {
+                           CustomerServiceImple customerService,
+                           ProfessionalServiceImple professionalService) {
         this.orderService = orderService;
         this.serviceService = serviceService;
         this.customerService = customerService;
+        this.professionalService = professionalService;
         this.mapper = new DozerBeanMapper();
         this.modelMapper = new ModelMapper();
     }
@@ -49,8 +58,16 @@ public class OrderController {
     }
 
     @GetMapping("/getByCityAndService")
-    public ResponseEntity<List<Order>> getByCityAndService(@RequestHeader String city, String serviceName) {
-        return ResponseEntity.ok(orderService.getByCityAndServiceAndStatus(city, serviceName));
+    public ResponseEntity<List<OrderDto>> getByCityAndService(@RequestHeader OrderDto orderDto) {
+        Professional professional = professionalService.getById(orderDto.getprod());
+        List<Order> orderList = orderService.getByCityAndServiceAndStatus(professional.getCity(), professional.getServices());
+        List<OrderDto> orderDtos = new ArrayList<>();
+        for (Order o: orderList) {
+            OrderDto savedOrderDto = modelMapper.map(o, OrderDto.class);
+            orderDtos.add(savedOrderDto);
+        }
+
+        return ResponseEntity.ok(orderDtos);
     }
 
     @GetMapping("/findById")

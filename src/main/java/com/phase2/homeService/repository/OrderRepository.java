@@ -8,11 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    //List<Order> getByCityEqualsAndServiceEqualsAAndOrderStatusEquals(String city, Services serviceName, OrderStatus orderStatus);
+    @Query("FROM Order AS o WHERE o.city = :city AND " +
+            "o.service IN (:services) AND " +
+            "o.orderStatus = 'WAITING_FOR_PROFESSIONAL_OFFER' OR " +
+            "o.orderStatus = 'WAITING_FOR_PROFESSIONAL_SELECTION' ")
+    List<Order> getByCityAndServiceAndStatus(@Param("city") String city,
+                                            @Param("services") Set<Services> services);
 
-    @Query("SELECT o FROM Order o WHERE o.city = :city AND o.service.serviceName = :serviceName AND o.orderStatus = 'WAITING_FOR_PROFESSIONAL_OFFER'")
-    List<Order> getByCityAndServiceAndStatus(@Param("city") String city, @Param("serviceName") String serviceName);
+
 }
