@@ -41,4 +41,7 @@ public class Order extends BaseEntity<Integer> {
     @OneToMany(mappedBy = "order")
     @ToString.Exclude
     private Set<Offer> offers;
+
+    @ManyToOne
+    private Professional professional;
 }

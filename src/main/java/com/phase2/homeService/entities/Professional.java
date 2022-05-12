@@ -23,6 +23,8 @@ public class Professional extends User {
     @Column(nullable = true)
     private byte[] image;
     private String nationalCode;
+    @OneToMany(mappedBy = "professional")
+    private Set<Order> orders;
 
     @JoinTable(name = "professional_service",
             joinColumns = {@JoinColumn(name = "professional_id")},

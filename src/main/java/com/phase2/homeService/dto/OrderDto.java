@@ -34,5 +34,6 @@ import java.util.Date;
         private String buildingNo;
         private Integer customer_id;
         private Integer service_id;
+        private Integer professional_id;
 
     }

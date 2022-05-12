@@ -71,4 +71,15 @@ public class OrderController {
         return ResponseEntity.ok(orderDtos);
     }
 
+    @PostMapping("/selectOffer")
+    public ResponseEntity<OrderDto> selectOffer(@RequestBody OrderDto orderDto){
+        Professional professional = professionalService.getById(orderDto.getProfessional_id());
+        Order order = orderService.getById(orderDto.getId());
+        order.setOrderStatus(OrderStatus.PROFESSIONAL_IS_COMING);
+        order.setProfessional(professional);
+        Order savedOrder = orderService.save(order);
+        OrderDto savedOrderDto = modelMapper.map(savedOrder, OrderDto.class);
+        return ResponseEntity.ok(savedOrderDto);
+    }
+
 }
