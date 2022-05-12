@@ -52,11 +52,11 @@ public class OfferController {
     public ResponseEntity<List<OfferDto>> getOrderOffers(@RequestBody OfferDto offerDto) {
         Order order = orderService.getById(offerDto.getOrder_id());
         List<Offer> offerList = offerService.getOrderOffers(order.getId());
-        List<OfferDto> returnedOffers = new ArrayList<>();
+        List<OfferDto> savedOffersDto = new ArrayList<>();
         for (Offer o:offerList) {
-            OfferDto returnedOfferDto = modelMapper.map(o, OfferDto.class);
-            returnedOffers.add(returnedOfferDto);
+            OfferDto savedOfferDto = modelMapper.map(o, OfferDto.class);
+            savedOffersDto.add(savedOfferDto);
         }
-        return ResponseEntity.ok(returnedOffers);
+        return ResponseEntity.ok(savedOffersDto);
     }
 }

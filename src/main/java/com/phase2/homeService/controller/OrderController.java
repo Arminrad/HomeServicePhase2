@@ -71,13 +71,4 @@ public class OrderController {
         return ResponseEntity.ok(orderDtos);
     }
 
-    @GetMapping("/findById")
-    public ResponseEntity<Order> findById(@RequestParam Integer id) {
-        Order order = orderService.findById(id);
-        if (order != null)
-            return ResponseEntity.ok(order);
-        else
-            return ResponseEntity.notFound().build();
-    }
-
 }
