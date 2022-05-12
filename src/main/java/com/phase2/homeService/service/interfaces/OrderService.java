@@ -14,4 +14,6 @@ public interface OrderService {
 
     Order findById(Integer id);
 
+    Order getById(Integer id);
+
 }

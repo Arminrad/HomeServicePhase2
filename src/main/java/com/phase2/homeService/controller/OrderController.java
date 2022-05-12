@@ -57,9 +57,10 @@ public class OrderController {
         return ResponseEntity.ok(savedOrderDto);
     }
 
-    @GetMapping("/getByCityAndService")
-    public ResponseEntity<List<OrderDto>> getByCityAndService(@RequestHeader OrderDto orderDto) {
-        Professional professional = professionalService.getById(orderDto.getprod());
+    //change get to post**
+    @PostMapping("/getByCityAndService")
+    public ResponseEntity<List<OrderDto>> getByCityAndService(@RequestBody ProfessionalDto professionalDto) {
+        Professional professional = professionalService.getById(professionalDto.getId());
         List<Order> orderList = orderService.getByCityAndServiceAndStatus(professional.getCity(), professional.getServices());
         List<OrderDto> orderDtos = new ArrayList<>();
         for (Order o: orderList) {

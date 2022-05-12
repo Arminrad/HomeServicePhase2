@@ -34,6 +34,10 @@ public class OrderServiceImple implements OrderService {
         return orderRepository.getById(id);
     }
 
+    @Override
+    public Order getById(Integer id) {
+        return orderRepository.getById(id);
+    }
 
 
 }
