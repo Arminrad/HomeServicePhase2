@@ -16,6 +16,7 @@ import java.util.Date;
 
     public class OrderDto {
 
+        private Integer id;
         private Long proposedOrderPrice;
         private String description;
         @CreationTimestamp
