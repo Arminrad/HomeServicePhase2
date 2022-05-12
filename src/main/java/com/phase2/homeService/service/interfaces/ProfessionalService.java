@@ -13,4 +13,6 @@ public interface ProfessionalService {
     List<Professional> waitingForConfirmationProfessionals();
 
     Professional getById(Integer id);
+
+    void updateProfessionalStatus(Integer id);
 }

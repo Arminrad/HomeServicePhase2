@@ -24,7 +24,7 @@ public class ProfessionalDto {
     private Date signUpDate;
     private Double balance;
     @Enumerated(EnumType.STRING)
-    private UserStatus status = UserStatus.NEW;
+    private UserStatus status = UserStatus.WAITING_FOR_CONFIRMATION;
     @Enumerated(EnumType.STRING)
     private UserType type = UserType.Professional;
     @Column(nullable = false)

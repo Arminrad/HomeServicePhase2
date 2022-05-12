@@ -5,6 +5,7 @@ import com.phase2.homeService.repository.ProfessionalRepository;
 import com.phase2.homeService.service.interfaces.ProfessionalService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -35,5 +36,11 @@ public class ProfessionalServiceImple implements ProfessionalService {
     @Override
     public Professional getById(Integer id) {
         return professionalRepository.getById(id);
+    }
+
+    @Override
+    @Transactional
+    public void updateProfessionalStatus(Integer id) {
+        professionalRepository.updateProfessionalStatus(id);
     }
 }

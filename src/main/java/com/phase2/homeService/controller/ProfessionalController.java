@@ -40,8 +40,8 @@ public class ProfessionalController {
         return ResponseEntity.ok(savedProfessionalDto);
     }
 
-    @GetMapping("/getNewProfessional")
-    public ResponseEntity<List<ProfessionalDto>> getNewProfessional() {
+    @GetMapping("/getProfessionalsWithNewStatus")
+    public ResponseEntity<List<ProfessionalDto>> getProfessionalsWithNewStatus() {
         List<Professional> professionals = professionalService.waitingForConfirmationProfessionals();
         List<ProfessionalDto> professionalDtoList = new ArrayList<>();
         for (Professional p: professionals) {
@@ -52,11 +52,7 @@ public class ProfessionalController {
     }
 
     @PostMapping("/professionalConfirmation")
-    public ResponseEntity<ProfessionalDto> professionalConfirmation(@RequestBody ProfessionalDto professionalDto){
-        Professional savedProfessional = professionalService.getById(professionalDto.getId());
-        savedProfessional.setStatus(UserStatus.CONFIRMED);
-        System.out.println(savedProfessional.getStatus());
-        ProfessionalDto savedProfessionalDto = modelMapper.map(savedProfessional, ProfessionalDto.class);
-        return ResponseEntity.ok(savedProfessionalDto);
+    public void professionalConfirmation(@RequestBody ProfessionalDto professionalDto){
+        professionalService.updateProfessionalStatus(professionalDto.getId());
     }
 }
