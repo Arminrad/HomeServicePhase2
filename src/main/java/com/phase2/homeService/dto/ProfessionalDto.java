@@ -32,4 +32,5 @@ public class ProfessionalDto {
     @Column(nullable = true)
     private byte[] image;
     private String nationalCode;
+    private Integer[] services_id;
 }
