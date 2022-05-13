@@ -43,4 +43,11 @@ public class ProfessionalServiceImple implements ProfessionalService {
     public void updateProfessionalStatus(Integer id) {
         professionalRepository.updateProfessionalStatus(id);
     }
+
+    @Override
+    public Professional changePassword(Professional professional) {
+        Professional savedProfessional = professionalRepository.getById(professional.getId());
+        savedProfessional.setPassword(professional.getPassword());
+        return professionalRepository.save(savedProfessional);
+    }
 }

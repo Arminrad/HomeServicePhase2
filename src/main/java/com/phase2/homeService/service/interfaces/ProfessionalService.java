@@ -15,4 +15,6 @@ public interface ProfessionalService {
     Professional getById(Integer id);
 
     void updateProfessionalStatus(Integer id);
+
+    Professional changePassword(Professional professional);
 }

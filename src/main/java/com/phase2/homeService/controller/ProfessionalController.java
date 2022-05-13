@@ -60,4 +60,15 @@ public class ProfessionalController {
     public void professionalConfirmation(@RequestBody ProfessionalDto professionalDto){
         professionalService.updateProfessionalStatus(professionalDto.getId());
     }
+
+    @PutMapping("/updatePassword")
+    public ResponseEntity<ProfessionalDto> changePassword(@RequestBody ProfessionalDto professionalDto){
+        Professional professional = mapper.map(professionalDto, Professional.class);
+        Professional savedProfessional = professionalService.changePassword(professional);
+        ProfessionalDto savedProfessionalDto = modelMapper.map(savedProfessional, ProfessionalDto.class);
+        if (savedProfessionalDto != null){
+            return ResponseEntity.ok(savedProfessionalDto);
+        }else return ResponseEntity.notFound().build();
+    }
+
 }

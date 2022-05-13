@@ -1,17 +1,16 @@
 package com.phase2.homeService.controller;
 
 import com.phase2.homeService.dto.CustomerDto;
+import com.phase2.homeService.dto.ProfessionalDto;
 import com.phase2.homeService.entities.Customer;
 import com.phase2.homeService.entities.Order;
+import com.phase2.homeService.entities.Professional;
 import com.phase2.homeService.entities.enumeration.UserStatus;
 import com.phase2.homeService.service.implementations.CustomerServiceImple;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
@@ -33,5 +32,7 @@ public class CustomerController {
         CustomerDto savedCustomerDto = modelMapper.map(savedCustomer, CustomerDto.class);
         return ResponseEntity.ok(savedCustomerDto);
     }
+
+
 
 }
