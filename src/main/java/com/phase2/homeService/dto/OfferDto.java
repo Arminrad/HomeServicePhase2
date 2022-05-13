@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -23,5 +24,7 @@ public class OfferDto {
     private Date startTime;
     private Integer order_id;
     private Integer professional_id;
+    @NotBlank(message = "order by can not be blank")
     private String orderedBy;
+
 }

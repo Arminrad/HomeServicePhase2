@@ -52,11 +52,4 @@ public class Professional extends User {
         this.nationalCode = nationalCode;
         this.services = services;
     }
-
-    public Professional(String city, byte[] image, String nationalCode, Set<Services> services) {
-        this.city = city;
-        this.image = image;
-        this.nationalCode = nationalCode;
-        this.services = services;
-    }
 }

@@ -3,18 +3,18 @@ package com.phase2.homeService.controller;
 import com.phase2.homeService.dto.ProfessionalDto;
 import com.phase2.homeService.entities.Professional;
 import com.phase2.homeService.entities.Services;
+import com.phase2.homeService.entities.enumeration.UserType;
 import com.phase2.homeService.service.implementations.ProfessionalServiceImple;
 import com.phase2.homeService.service.implementations.ServicesServiceImple;
 import com.phase2.homeService.util.Utility;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping("/professional")
@@ -32,17 +32,26 @@ public class ProfessionalController {
         this.modelMapper = new ModelMapper();
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<ProfessionalDto> save(@RequestBody ProfessionalDto professionalDto) {
+    @PostMapping(path = "/save",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public void save(@ModelAttribute ProfessionalDto professionalDto) throws IOException {
         Set<Services> servicesSet = new HashSet<>();
         for (Integer sId : professionalDto.getServices_id()) {
             servicesSet.add(servicesService.getById(sId));
         }
-        Professional professional = mapper.map(professionalDto, Professional.class);
+        Professional professional = createProfessional(professionalDto);//mapper.map(professionalDto, Professional.class);
         professional.setServices(servicesSet);
         Professional savedProfessional = professionalService.save(professional);
-        ProfessionalDto savedProfessionalDto = modelMapper.map(savedProfessional, ProfessionalDto.class);
-        return ResponseEntity.ok(savedProfessionalDto);
+/*        ProfessionalDto savedProfessionalDto = modelMapper.map(savedProfessional, ProfessionalDto.class);
+        return ResponseEntity.ok(savedProfessionalDto);*/
+    }
+
+    private Professional createProfessional(ProfessionalDto professionalDto) throws IOException {
+        Professional professional = new Professional(
+                 "ali",  "reza",  "as@mail.com",
+                 "password",  null,  100.0,
+                 UserType.Professional,  "city",
+        professionalDto.getImage().getBytes(),  "nationalCode",  null);
+        return professional;
     }
 
     @GetMapping("/getProfessionalsWithNewStatus")

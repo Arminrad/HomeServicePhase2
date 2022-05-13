@@ -67,11 +67,10 @@ public class OrderController {
             OrderDto savedOrderDto = modelMapper.map(o, OrderDto.class);
             orderDtos.add(savedOrderDto);
         }
-
         return ResponseEntity.ok(orderDtos);
     }
 
-    @PostMapping("/selectOffer")
+    @GetMapping("/selectOffer")
     public ResponseEntity<OrderDto> selectOffer(@RequestBody OrderDto orderDto){
         Professional professional = professionalService.getById(orderDto.getProfessional_id());
         Order order = orderService.getById(orderDto.getId());

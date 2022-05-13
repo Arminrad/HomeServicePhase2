@@ -4,6 +4,7 @@ import com.phase2.homeService.entities.base.BaseEntity;
 import com.phase2.homeService.entities.enumeration.UserStatus;
 import com.phase2.homeService.entities.enumeration.UserType;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -20,13 +21,13 @@ import java.util.Date;
 @Table(name = "users")
 public class User extends BaseEntity<Integer> {
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String firstName;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String lastName;
-    @Column(unique = true, nullable = false)
-    private String email;
-    @Column(nullable = false)
+    @Column(unique = true, nullable = true)
+    private String email = "qwe@gmail.com";
+    @Column(nullable = true)
     private String password;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

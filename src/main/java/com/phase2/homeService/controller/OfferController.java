@@ -9,11 +9,9 @@ import com.phase2.homeService.service.implementations.ProfessionalServiceImple;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class OfferController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<OfferDto> save(@RequestBody OfferDto offerDto) {
+    public ResponseEntity<OfferDto> save(@Valid @RequestBody OfferDto offerDto) {
         Offer offer = mapper.map(offerDto, Offer.class);
         Professional professional = professionalService.getById(offerDto.getProfessional_id());
         offer.setProfessional(professional);
@@ -47,9 +45,10 @@ public class OfferController {
         OfferDto savedOfferDto = modelMapper.map(savedOffer, OfferDto.class);
         return ResponseEntity.ok(savedOfferDto);
     }
+}
 
-    @PostMapping("/getOrderOffers")
-    public ResponseEntity<List<OfferDto>> getOrderOffers(@RequestBody OfferDto offerDto) {
+/*    @GetMapping("/getOrderOffers/{offerId}")
+    public ResponseEntity<List<OfferDto>> getOrderOffers(@PathVariable("offerId") Long offerId) {
         Order order = orderService.getById(offerDto.getOrder_id());
         List<Offer> offerList = offerService.getOrderOffers(order.getId());
         List<OfferDto> savedOffersDto = new ArrayList<>();
@@ -59,4 +58,4 @@ public class OfferController {
         }
         return ResponseEntity.ok(savedOffersDto);
     }
-}
+}*/
