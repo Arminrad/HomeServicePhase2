@@ -2,8 +2,11 @@ package com.phase2.homeService.service.implementations;
 
 import com.phase2.homeService.entities.Order;
 import com.phase2.homeService.entities.Services;
+import com.phase2.homeService.entities.enumeration.OrderStatus;
 import com.phase2.homeService.repository.OrderRepository;
 import com.phase2.homeService.service.interfaces.OrderService;
+import org.dozer.DozerBeanMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +24,9 @@ public class OrderServiceImple implements OrderService {
 
     @Override
     public Order save(Order order) {
+/*        order.setService(service);
+        order.setCustomer(customer);*/
+        order.setOrderStatus(OrderStatus.WAITING_FOR_PROFESSIONAL_OFFER);
         return orderRepository.save(order);
     }
 

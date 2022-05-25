@@ -25,27 +25,19 @@ public class Professional extends User {
     private String nationalCode;
     @OneToMany(mappedBy = "professional")
     private Set<Order> orders;
-
-    @JoinTable(name = "professional_service",
-            joinColumns = {@JoinColumn(name = "professional_id")},
-            inverseJoinColumns = {@JoinColumn(name = "service_id")})
+    @JoinTable(name = "professional_service", joinColumns = {@JoinColumn(name = "professional_id")}, inverseJoinColumns = {@JoinColumn(name = "service_id")})
     @ManyToMany
     @ToString.Exclude
     private Set<Services> services = new HashSet<>();
-
     @OneToMany(mappedBy = "professional")
     @ToString.Exclude
     private Set<Comment> comments;
-
     @OneToMany(mappedBy = "professional")
     @ToString.Exclude
     private Set<Offer> offers;
 
 
-    public Professional(String firstName, String lastName, String email,
-                        String password, Date signUpDate, Double balance,
-                        UserType type, String city,
-                        byte[] image, String nationalCode, Set<Services> services) {
+    public Professional(String firstName, String lastName, String email, String password, Date signUpDate, Double balance, UserType type, String city, byte[] image, String nationalCode, Set<Services> services) {
         super(firstName, lastName, email, password, signUpDate, balance, type);
         this.city = city;
         this.image = image;

@@ -5,6 +5,9 @@ import com.phase2.homeService.entities.Order;
 import com.phase2.homeService.repository.OfferRepository;
 import com.phase2.homeService.repository.OrderRepository;
 import com.phase2.homeService.service.interfaces.OfferService;
+import org.dozer.DozerBeanMapper;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,7 @@ public class OfferServiceImple implements OfferService {
     public OfferServiceImple(OfferRepository offerRepository, OrderRepository orderRepository) {
         this.offerRepository = offerRepository;
         this.orderRepository = orderRepository;
+
     }
 
     @Override
@@ -34,6 +38,11 @@ public class OfferServiceImple implements OfferService {
 
     @Override
     public List<Offer> getOrderOffers(Integer id) {
-        return offerRepository.getOrderOffers(id);
+        return null;
     }
+
+/*    @Override
+    public List<Offer> getOrderOffers(Integer id, Sort.by()) {
+        return offerRepository.getOrderOffers(id);
+    }*/
 }

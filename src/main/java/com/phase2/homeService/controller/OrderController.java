@@ -44,18 +44,16 @@ public class OrderController {
         this.modelMapper = new ModelMapper();
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<OrderDto> save(@RequestBody OrderDto orderDto) {
+/*    @PostMapping("/save")
+    public ResponseEntity<> save(@RequestBody OrderDto orderDto) {
         Services service = serviceService.getById(orderDto.getService_id());
-        Order order = mapper.map(orderDto, Order.class);
-        order.setService(service);
         Customer customer = customerService.getById(orderDto.getCustomer_id());
-        order.setCustomer(customer);
-        order.setOrderStatus(OrderStatus.WAITING_FOR_PROFESSIONAL_OFFER);
+        Order order = mapper.map(orderDto, Order.class);
         Order savedOrder = orderService.save(order);
+
         OrderDto savedOrderDto = modelMapper.map(savedOrder, OrderDto.class);
         return ResponseEntity.ok(savedOrderDto);
-    }
+    }*/
 
     //change get to post**
     @PostMapping("/getByCityAndService")
