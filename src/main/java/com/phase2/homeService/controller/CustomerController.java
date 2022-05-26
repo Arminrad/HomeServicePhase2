@@ -24,6 +24,6 @@ public class CustomerController {
         Customer customer = mapper.map(customerDto, Customer.class);
         Customer savedCustomer = customerService.save(customer);
         model.addAttribute("name", savedCustomer.getFirstName());
-        return "Welcome" + savedCustomer.getFirstName();
+        return "customer";
     }
 }

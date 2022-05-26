@@ -13,6 +13,6 @@ public class ServicesDto {
     private Integer id;
     private String serviceName;
     @OneToOne
-    private String parent;
+    private Integer parent_id;
     private Long lowestPrice;
 }

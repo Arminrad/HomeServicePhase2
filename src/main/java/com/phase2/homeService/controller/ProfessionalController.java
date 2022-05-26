@@ -33,16 +33,16 @@ public class ProfessionalController {
     }
 
     @PostMapping(path = "/save",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public void save(@ModelAttribute @RequestBody ProfessionalDto professionalDto) throws IOException {
-/*        Set<Services> servicesSet = new HashSet<>();
+    public String save(@ModelAttribute @RequestBody ProfessionalDto professionalDto) throws IOException {
+        Set<Services> servicesSet = new HashSet<>();
         for (Integer sId : professionalDto.getServices_id()) {
             servicesSet.add(servicesService.getById(sId));
-        }*/
+        }
         Professional professional = createProfessional(professionalDto);//mapper.map(professionalDto, Professional.class);
-        //professional.setServices(servicesSet);
+        professional.setServices(servicesSet);
         Professional savedProfessional = professionalService.save(professional);
-/*        ProfessionalDto savedProfessionalDto = modelMapper.map(savedProfessional, ProfessionalDto.class);
-        return ResponseEntity.ok(savedProfessionalDto);*/
+        ProfessionalDto savedProfessionalDto = modelMapper.map(savedProfessional, ProfessionalDto.class);
+        return "professionalProfile";
     }
 
     private Professional createProfessional(ProfessionalDto professionalDto) throws IOException {

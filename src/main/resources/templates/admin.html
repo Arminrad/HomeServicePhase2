@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="fa">
 <head>
-    <title>ثبت نام کاربر</title>
+    <title>ادمین</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link href="../static/css/style.css" rel="stylesheet"/>
     <link href="../static/images/favicon.png" rel="icon" sizes="64x64">
@@ -25,38 +25,43 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td style="width:50%;">
+            <aside dir="rtl" style="background-color: antiquewhite; height: 500px; width: 100%; border-radius: 10px">
+                <a href="../templates/professionalSignUp.html" target="_blank">
+                    <button style="height: 40px; border: 3px solid tomato; border-radius: 10px" type="button">ثبت نام متخصص</button>
+                </a>
+            </aside>
+        </td>
+        <td style="width:50%;">
             <main style="background-color: antiquewhite; height: 500px; width: 100%; border-radius: 10px">
-                <div class="center">
-                    <div class="center">
+                <div >
+                    <div >
                         <br>
-                        <h3 style="text-align: center">اطلاعات فردی کاربر</h3>
-                        <form action="http://localhost:8080/customer/save" method="post">
-                            <div >
+                        <h3 style="text-align: center">افزودن خدمت</h3>
+                        <form action="http://localhost:8080/service/save" method="post">
+                            <div style="text-align: center">
                                 <label>
-                                    نام:
-                                    <input type="text" placeholder="Name" name="firstName">
+                                    نام خدمت:<br/>
+                                    <input type="text" placeholder="Service Name" name="serviceName">
+                                </label>
+                            </div >
+                            <div style="text-align: center">
+                                <label>
+                                    کمترین قیمت:<br/>
+                                    <input type="number" placeholder="Lowest Price" name="lowestPrice">
                                 </label>
                             </div>
-                            <div >
+                            <div style="text-align: center">
                                 <label>
-                                        نام خانوادگی:
-                                    <input type="text" placeholder="FamilyName" name="lastName">
+                                    دسته ی خدمت:<br/>
+                                    <input type="checkbox" name="parent_id" value="4" > تعمیرات منزل
+                                    <input type="checkbox" name="parent_id" value="2"> دکوراسیون داخلی <br>
                                 </label>
                             </div>
-                            <div >
-                                <label>
-                                    ایمیل:
-                                    <input type="email" placeholder="Email" name="email">
-                                </label>
+                            <div style="text-align: center">
+                                <br>
+                                <button type="submit" >Register</button>
                             </div>
-                            <div >
-                                <label>
-                                    رمز عبور:
-                                    <input type="password" placeholder="Password" name="password">
-                                </label>
-                            </div>
-                            <button type="submit" class="center-horizontally">Register</button>
                         </form>
                     </div>
                 </div>
