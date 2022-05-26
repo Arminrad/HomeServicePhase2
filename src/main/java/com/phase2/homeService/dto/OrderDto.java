@@ -2,6 +2,7 @@ package com.phase2.homeService.dto;
 import com.phase2.homeService.entities.enumeration.OrderStatus;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,6 +23,7 @@ import java.util.Date;
         @CreationTimestamp
         @Temporal(TemporalType.TIMESTAMP)
         private Date orderRegistrationDate;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private Date preferredDueDate;
 
         @Enumerated(EnumType.STRING)

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="fa">
 <head>
-    <title>ادمین</title>
+    <title>کاربر</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link href="../static/css/style.css" rel="stylesheet"/>
     <link href="../static/images/favicon.png" rel="icon" sizes="64x64">
@@ -27,46 +27,55 @@
     <tr>
         <td style="width:50%;">
             <aside style="background-color: antiquewhite; height: 500px; width: 100%; border-radius: 10px">
-                <div >
-                    <div >
+                <div>
+                    <div>
                         <br>
                         <h3>ثبت سفارش</h3>
-                        <form action="http://localhost:8080/professional/save" method="post" enctype="multipart/form-data">
+                        <form action="http://localhost:8080/order/save" enctype="multipart/form-data"
+                              method="post">
                             <div>
                                 <label>
-                                     نوع خدمت:<br/>
-                                    <input type="checkbox" name="service_id" value="10" > کاشی کاری
-                                    <input type="checkbox" name="service_id" value="5"> نقاشی دیوار <br>
+                                    آی دی کاربر:<br/>
+                                    <input name="customer_id" type="number">
                                 </label>
                             </div>
-                            <div >
+                            <div>
+                                <label>
+                                    نوع خدمت:<br/>
+                                    <input name="service_id" type="checkbox" value="10"> کاشی کاری
+                                    <input name="service_id" type="checkbox" value="5"> نقاشی دیوار <br>
+                                </label>
+                            </div>
+                            <div>
                                 <label>
                                     قیمت پیشنهادی:<br/>
-                                    <input type="number" placeholder="ProposedPrice" name="proposedOrderPrice">
+                                    <input name="proposedOrderPrice" placeholder="ProposedPrice" step="0.01"
+                                           type="number">
                                 </label>
                             </div>
-                            <div >
+                            <div>
                                 <label>
                                     شرح خدمت:<br/>
-                                    <input type="text" placeholder="Description" name="description">
+                                    <textarea cols="35" name="description" placeholder="Description" rows="7"
+                                              type="text"></textarea>
                                 </label>
                             </div>
-                            <div >
+                            <div>
                                 <label>
                                     تاریخ پیشنهادی انجام خدمت:<br/>
-                                    <input type="date" placeholder="Date" name="preferredDueDate">
+                                    <input name="preferredDueDate" placeholder="Date" type="date">
                                 </label>
                             </div>
-                            <div >
+                            <div>
                                 <label>
                                     شهر:<br/>
-                                    <input type="text" placeholder="City" name="city">
+                                    <input name="city" placeholder="City" type="text">
                                 </label>
                             </div>
-                            <div >
+                            <div>
                                 <label>
                                     خیابان:<br/>
-                                    <input type="text" placeholder="Street" name="street">
+                                    <input name="street" placeholder="Street" type="text">
                                 </label>
                             </div>
                             <div>
@@ -80,33 +89,33 @@
         </td>
         <td style="width:50%;">
             <main style="background-color: antiquewhite; height: 500px; width: 100%; border-radius: 10px">
-                <div >
-                    <div >
+                <div>
+                    <div>
                         <br>
                         <h3 style="text-align: center">افزودن خدمت</h3>
                         <form action="http://localhost:8080/service/save" method="post">
                             <div style="text-align: center">
                                 <label>
                                     نام خدمت:<br/>
-                                    <input type="text" placeholder="Service Name" name="serviceName">
+                                    <input name="serviceName" placeholder="Service Name" type="text">
                                 </label>
-                            </div >
+                            </div>
                             <div style="text-align: center">
                                 <label>
                                     کمترین قیمت:<br/>
-                                    <input type="number" placeholder="Lowest Price" name="lowestPrice">
+                                    <input name="lowestPrice" placeholder="Lowest Price" type="number">
                                 </label>
                             </div>
                             <div style="text-align: center">
                                 <label>
                                     دسته ی خدمت:<br/>
-                                    <input type="checkbox" name="parent_id" value="4" > تعمیرات منزل
-                                    <input type="checkbox" name="parent_id" value="2"> دکوراسیون داخلی <br>
+                                    <input name="parent_id" type="checkbox" value="4"> تعمیرات منزل
+                                    <input name="parent_id" type="checkbox" value="2"> دکوراسیون داخلی <br>
                                 </label>
                             </div>
                             <div style="text-align: center">
                                 <br>
-                                <button type="submit" >Register</button>
+                                <button type="submit">Register</button>
                             </div>
                         </form>
                     </div>

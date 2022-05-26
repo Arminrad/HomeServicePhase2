@@ -38,7 +38,7 @@ public class ProfessionalController {
         for (Integer sId : professionalDto.getServices_id()) {
             servicesSet.add(servicesService.getById(sId));
         }
-        Professional professional = createProfessional(professionalDto);//mapper.map(professionalDto, Professional.class);
+        Professional professional = createProfessional(professionalDto);
         professional.setServices(servicesSet);
         Professional savedProfessional = professionalService.save(professional);
         ProfessionalDto savedProfessionalDto = modelMapper.map(savedProfessional, ProfessionalDto.class);

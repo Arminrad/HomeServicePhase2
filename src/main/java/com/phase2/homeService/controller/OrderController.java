@@ -1,5 +1,6 @@
 package com.phase2.homeService.controller;
 
+import com.phase2.homeService.dto.CustomerDto;
 import com.phase2.homeService.dto.OrderDto;
 import com.phase2.homeService.dto.ProfessionalDto;
 import com.phase2.homeService.entities.Customer;
@@ -14,7 +15,9 @@ import com.phase2.homeService.service.implementations.ServicesServiceImple;
 import org.aspectj.weaver.ast.Or;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -44,13 +47,15 @@ public class OrderController {
         this.modelMapper = new ModelMapper();
     }
 
-    @PostMapping("/save")
-    public String save(@RequestBody OrderDto orderDto) {
+    @PostMapping(path = "/save")
+    public String save(@ModelAttribute @RequestBody OrderDto orderDto) {
+        System.out.println(orderDto.getPreferredDueDate());
         Services service = serviceService.getById(orderDto.getService_id());
         Customer customer = customerService.getById(orderDto.getCustomer_id());
         Order order = mapper.map(orderDto, Order.class);
+        order.setService(service);
+        order.setCustomer(customer);
         Order savedOrder = orderService.save(order);
-
         OrderDto savedOrderDto = modelMapper.map(savedOrder, OrderDto.class);
         return "customer";
     }
