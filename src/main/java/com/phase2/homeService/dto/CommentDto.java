@@ -12,6 +12,6 @@ public class CommentDto {
     private Integer id;
     private String text;
     private Integer rating;
-    private String customer_id;
-    private String professional_id;
+    private Integer customer_id;
+    private Integer professional_id;
 }

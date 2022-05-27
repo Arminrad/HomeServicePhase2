@@ -92,28 +92,38 @@
                 <div>
                     <div>
                         <br>
-                        <h3 style="text-align: center">افزودن خدمت</h3>
-                        <form action="http://localhost:8080/service/save" method="post">
-                            <div style="text-align: center">
+                        <h3 >ثبت نظر</h3>
+                        <form action="http://localhost:8080/comment/save" method="post">
+                            <div>
                                 <label>
-                                    نام خدمت:<br/>
-                                    <input name="serviceName" placeholder="Service Name" type="text">
+                                    شرح نظر:<br/>
+                                    <textarea cols="35" name="text" placeholder="Comment" rows="7"
+                                              type="text"></textarea>
                                 </label>
                             </div>
-                            <div style="text-align: center">
+                            <div >
                                 <label>
-                                    کمترین قیمت:<br/>
-                                    <input name="lowestPrice" placeholder="Lowest Price" type="number">
+                                    امتیاز:<br/>
+                                    <input type="radio" name="rating" value="1">1
+                                    <input type="radio" name="rating" value="2">2
+                                    <input type="radio" name="rating" value="3">3
+                                    <input type="radio" name="rating" value="4">4
+                                    <input type="radio" name="rating" value="5">5 <br>
                                 </label>
                             </div>
-                            <div style="text-align: center">
+                            <div>
                                 <label>
-                                    دسته ی خدمت:<br/>
-                                    <input name="parent_id" type="checkbox" value="4"> تعمیرات منزل
-                                    <input name="parent_id" type="checkbox" value="2"> دکوراسیون داخلی <br>
+                                    آی دی کاربر:<br/>
+                                    <input name="customer_id" type="number">
                                 </label>
                             </div>
-                            <div style="text-align: center">
+                            <div>
+                                <label>
+                                    آی دی متخصص:<br/>
+                                    <input name="professional_id" type="number">
+                                </label>
+                            </div>
+                            <div >
                                 <br>
                                 <button type="submit">Register</button>
                             </div>
