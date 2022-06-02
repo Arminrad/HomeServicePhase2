@@ -1,5 +1,6 @@
 package com.phase2.homeService.service.implementations;
 
+import com.phase2.homeService.entities.Customer;
 import com.phase2.homeService.entities.Order;
 import com.phase2.homeService.entities.Services;
 import com.phase2.homeService.entities.enumeration.OrderStatus;
@@ -43,6 +44,11 @@ public class OrderServiceImple implements OrderService {
     @Override
     public Order getById(Integer id) {
         return orderRepository.getById(id);
+    }
+
+    @Override
+    public List<Order> getOrdersByCustomer(Customer customer) {
+        return orderRepository.getOrdersByCustomer(customer);
     }
 
 

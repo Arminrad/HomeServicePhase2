@@ -1,6 +1,5 @@
 package com.phase2.homeService.controller;
 
-import com.phase2.homeService.dto.CustomerDto;
 import com.phase2.homeService.dto.OrderDto;
 import com.phase2.homeService.dto.ProfessionalDto;
 import com.phase2.homeService.entities.Customer;
@@ -12,17 +11,12 @@ import com.phase2.homeService.service.implementations.CustomerServiceImple;
 import com.phase2.homeService.service.implementations.OrderServiceImple;
 import com.phase2.homeService.service.implementations.ProfessionalServiceImple;
 import com.phase2.homeService.service.implementations.ServicesServiceImple;
-import org.aspectj.weaver.ast.Or;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/order")
@@ -47,9 +41,8 @@ public class OrderController {
         this.modelMapper = new ModelMapper();
     }
 
-    @PostMapping(path = "/save")
-    public String save(@ModelAttribute @RequestBody OrderDto orderDto) {
-        System.out.println(orderDto.getPreferredDueDate());
+    @PostMapping("/save")
+    public ResponseEntity<OrderDto> save(@RequestBody OrderDto orderDto) {
         Services service = serviceService.getById(orderDto.getService_id());
         Customer customer = customerService.getById(orderDto.getCustomer_id());
         Order order = mapper.map(orderDto, Order.class);
@@ -57,7 +50,7 @@ public class OrderController {
         order.setCustomer(customer);
         Order savedOrder = orderService.save(order);
         OrderDto savedOrderDto = modelMapper.map(savedOrder, OrderDto.class);
-        return "customer";
+        return ResponseEntity.ok(savedOrderDto);
     }
 
     //change get to post**
@@ -65,6 +58,18 @@ public class OrderController {
     public ResponseEntity<List<OrderDto>> getByCityAndService(@RequestBody ProfessionalDto professionalDto) {
         Professional professional = professionalService.getById(professionalDto.getId());
         List<Order> orderList = orderService.getByCityAndServiceAndStatus(professional.getCity(), professional.getServices());
+        List<OrderDto> orderDtos = new ArrayList<>();
+        for (Order o: orderList) {
+            OrderDto savedOrderDto = modelMapper.map(o, OrderDto.class);
+            orderDtos.add(savedOrderDto);
+        }
+        return ResponseEntity.ok(orderDtos);
+    }
+
+    @GetMapping("/getOrders/{id}")
+    public ResponseEntity<List<OrderDto>> getOrderByCustomer(@PathVariable Long id) {
+        Customer customer = customerService.getById(Math.toIntExact(id));
+        List<Order> orderList = orderService.getOrdersByCustomer(customer);
         List<OrderDto> orderDtos = new ArrayList<>();
         for (Order o: orderList) {
             OrderDto savedOrderDto = modelMapper.map(o, OrderDto.class);
@@ -83,5 +88,17 @@ public class OrderController {
         OrderDto savedOrderDto = modelMapper.map(savedOrder, OrderDto.class);
         return ResponseEntity.ok(savedOrderDto);
     }
+
+/*    @GetMapping("/getBalance/{id}")
+    public ResponseEntity<List<OrderDto>> getOrderByCustomer(@PathVariable Long id) {
+        Customer customer = customerService.getById(Math.toIntExact(id));
+        List<Order> orderList = orderService.getOrdersByCustomer(customer);
+        List<OrderDto> orderDtos = new ArrayList<>();
+        for (Order o: orderList) {
+            OrderDto savedOrderDto = modelMapper.map(o, OrderDto.class);
+            orderDtos.add(savedOrderDto);
+        }
+        return ResponseEntity.ok(orderDtos);
+    }*/
 
 }

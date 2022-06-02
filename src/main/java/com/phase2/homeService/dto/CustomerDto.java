@@ -1,6 +1,6 @@
 package com.phase2.homeService.dto;
 import com.phase2.homeService.entities.enumeration.UserStatus;
-import com.phase2.homeService.entities.enumeration.UserType;
+import com.phase2.homeService.entities.enumeration.Role;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
@@ -26,5 +26,5 @@ public class CustomerDto {
     @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.NEW;
     @Enumerated(EnumType.STRING)
-    private UserType type = UserType.Customer;
+    private Role type = Role.ROLE_CUSTOMER;
 }

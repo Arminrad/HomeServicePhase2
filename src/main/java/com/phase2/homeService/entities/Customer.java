@@ -1,9 +1,7 @@
 package com.phase2.homeService.entities;
 
-import com.phase2.homeService.entities.Comment;
-import com.phase2.homeService.entities.Order;
 import com.phase2.homeService.entities.base.User;
-import com.phase2.homeService.entities.enumeration.UserType;
+import com.phase2.homeService.entities.enumeration.Role;
 import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
@@ -30,7 +28,7 @@ public class Customer extends User {
     @ToString.Exclude
     private Set<Order> orders;
 
-    public Customer(String firstName, String lastName, String email, String password, Date signUpDate, Double balance, UserType type) {
+    public Customer(String firstName, String lastName, String email, String password, Date signUpDate, Double balance, Role type) {
         super(firstName, lastName, email, password, signUpDate, balance, type);
     }
 }

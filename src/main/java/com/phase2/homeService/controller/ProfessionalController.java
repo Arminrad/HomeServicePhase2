@@ -1,12 +1,12 @@
 package com.phase2.homeService.controller;
 
+import com.phase2.homeService.dto.DynamicSearchDto;
 import com.phase2.homeService.dto.ProfessionalDto;
 import com.phase2.homeService.entities.Professional;
 import com.phase2.homeService.entities.Services;
-import com.phase2.homeService.entities.enumeration.UserType;
+import com.phase2.homeService.entities.enumeration.Role;
 import com.phase2.homeService.service.implementations.ProfessionalServiceImple;
 import com.phase2.homeService.service.implementations.ServicesServiceImple;
-import com.phase2.homeService.util.Utility;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
@@ -49,7 +49,7 @@ public class ProfessionalController {
         Professional professional = new Professional(
                  professionalDto.getFirstName(),  professionalDto.getLastName(),  professionalDto.getEmail(),
                  professionalDto.getPassword(),  null,  100.0,
-                 UserType.Professional,  professionalDto.getCity(),
+                 Role.ROLE_PROFESSIONAL,  professionalDto.getCity(),
         professionalDto.getImage().getBytes(),  professionalDto.getNationalCode(),  null);
         return professional;
     }
@@ -78,6 +78,18 @@ public class ProfessionalController {
         if (savedProfessionalDto != null){
             return ResponseEntity.ok(savedProfessionalDto);
         }else return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping(value = "/gridSearch")
+    public ResponseEntity<List<ProfessionalDto>> gridSearch(@RequestBody DynamicSearchDto dynamicSearch) {
+        List<Professional> professionalList = professionalService.filterProfessional(dynamicSearch);
+        List<ProfessionalDto> dtoList = new ArrayList<>();
+        for (Professional e:professionalList
+        ) {
+            ProfessionalDto professionalDto = modelMapper.map(e, ProfessionalDto.class);
+            dtoList.add(professionalDto);
+        }
+        return ResponseEntity.ok(dtoList);
     }
 
 }

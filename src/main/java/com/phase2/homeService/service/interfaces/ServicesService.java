@@ -13,4 +13,6 @@ public interface ServicesService {
     Services getById(Integer id);
 
     List<Services> findAll();
+
+    Services getServicesByServiceName(String serviceName);
 }

@@ -1,6 +1,7 @@
 package com.phase2.homeService.service.implementations;
 
 import com.phase2.homeService.entities.Services;
+import com.phase2.homeService.entities.enumeration.Role;
 import com.phase2.homeService.repository.ServicesRepository;
 import com.phase2.homeService.service.interfaces.ServicesService;
 import org.dozer.DozerBeanMapper;
@@ -32,4 +33,12 @@ public class ServicesServiceImple implements ServicesService {
     public List<Services> findAll() {
         return serviceRepository.findAll();
     }
+
+    @Override
+    public Services getServicesByServiceName(String serviceName) {
+        return serviceRepository.getServicesByServiceName(serviceName);
+    }
+
+
+
 }

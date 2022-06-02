@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="fa" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>کاربر</title>
+    <title>متخصص</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link href="../static/css/style.css" rel="stylesheet"/>
     <link href="../static/images/favicon.png" rel="icon" sizes="64x64">
@@ -14,19 +14,19 @@
 
 <table style="width:100%">
     <tr>
-        <td colspan="2">
+        <td colspan="3">
             <header style="background-image:url('../static/images/158939.svg'); background-size: 100% 100% ; border: 3px solid tomato; border-radius: 10px; height: 250px;"></header>
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="3">
             <nav dir="ltr" style="background-color: lightsteelblue; height: 40px; width:100%; border-radius: 10px">
             </nav>
         </td>
     </tr>
     <tr>
         <td style="width:50%;">
-            <aside style="background-color: antiquewhite; height: 500px; width: 100%; border-radius: 10px">
+            <aside style="background-color: antiquewhite; height: 500px; width: 50%; border-radius: 10px">
                 <div>
                     <div>
                         <br>
@@ -85,7 +85,23 @@
                         </form>
                     </div>
                 </div>
+
             </aside>
+        </td>
+        <td >
+            <form  style="background-color: antiquewhite; height: 500px; width: 50%; border-radius: 10px"
+                   dir="ltr" action="http://localhost:8080/order/getByCityAndService" enctype="multipart/form-data" method="get">
+                <div >
+                    <label>
+                        آی دی کاربر:<br/>
+                        <input name="customer_id" type="number">
+                    </label>
+                </div>
+                <button style="height: 40px; border: 3px solid tomato; border-radius: 10px" type="submit;">لیست سفارشات</button>
+            </form>
+            <ul>
+                <li> th:each="order: ${}</li>
+            </ul>
         </td>
         <td style="width:50%;">
             <main style="background-color: antiquewhite; height: 500px; width: 100%; border-radius: 10px">
@@ -134,7 +150,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="3">
             <footer style="background-color: gray; height: 250px; width: 100%; border-radius: 10px"></footer>
         </td>
     </tr>

@@ -1,11 +1,8 @@
 package com.phase2.homeService.dto;
 import com.phase2.homeService.entities.enumeration.UserStatus;
-import com.phase2.homeService.entities.enumeration.UserType;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import com.phase2.homeService.entities.enumeration.Role;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
 import java.util.Date;
 
 /*@AllArgsConstructor
@@ -26,7 +23,7 @@ public class ProfessionalDto {
 /*    @Enumerated(EnumType.STRING)*/
     private UserStatus status = UserStatus.WAITING_FOR_CONFIRMATION;
 /*    @Enumerated(EnumType.STRING)*/
-    private UserType type = UserType.Professional;
+    private Role type = Role.ROLE_PROFESSIONAL;
 /*    @Column(nullable = false)*/
     private String city;
     private MultipartFile image;
@@ -97,11 +94,11 @@ public class ProfessionalDto {
         this.status = status;
     }
 
-    public UserType getType() {
+    public Role getType() {
         return type;
     }
 
-    public void setType(UserType type) {
+    public void setType(Role type) {
         this.type = type;
     }
 

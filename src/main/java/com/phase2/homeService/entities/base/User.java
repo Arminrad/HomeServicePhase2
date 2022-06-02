@@ -1,10 +1,8 @@
 package com.phase2.homeService.entities.base;
 
-import com.phase2.homeService.entities.base.BaseEntity;
 import com.phase2.homeService.entities.enumeration.UserStatus;
-import com.phase2.homeService.entities.enumeration.UserType;
+import com.phase2.homeService.entities.enumeration.Role;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -36,7 +34,7 @@ public class User extends BaseEntity<Integer> {
     @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.NEW;
     @Enumerated(EnumType.STRING)
-    private UserType type;
+    private Role role;
 
     @Transient
     public String getDiscriminatorValue() {
@@ -44,13 +42,13 @@ public class User extends BaseEntity<Integer> {
         return val == null ? null: val.value();
     }
 
-    public User(String firstName, String lastName, String email, String password, Date signUpDate, Double balance, UserType type) {
+    public User(String firstName, String lastName, String email, String password, Date signUpDate, Double balance, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.signUpDate = signUpDate;
         this.balance = balance;
-        this.type = type;
+        this.role = role;
     }
 }

@@ -1,5 +1,6 @@
 package com.phase2.homeService.repository;
 
+import com.phase2.homeService.entities.Customer;
 import com.phase2.homeService.entities.Order;
 import com.phase2.homeService.entities.Services;
 import com.phase2.homeService.entities.enumeration.OrderStatus;
@@ -19,5 +20,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> getByCityAndServiceAndStatus(@Param("city") String city,
                                             @Param("services") Set<Services> services);
 
-
+    //@Query("FROM Order AS o WHERE o.customer = :customer ")
+    List<Order> getOrdersByCustomer(Customer customer);
 }

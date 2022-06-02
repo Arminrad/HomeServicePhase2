@@ -1,7 +1,7 @@
 package com.phase2.homeService.entities;
 
 import com.phase2.homeService.entities.base.User;
-import com.phase2.homeService.entities.enumeration.UserType;
+import com.phase2.homeService.entities.enumeration.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +18,8 @@ import java.util.Set;
 @Entity
 @DiscriminatorValue("Professional")
 public class Professional extends User {
+
+    private Integer rating;
     @Column(nullable = true)
     private String city;
     @Column(nullable = true)
@@ -37,8 +39,8 @@ public class Professional extends User {
     private Set<Offer> offers;
 
 
-    public Professional(String firstName, String lastName, String email, String password, Date signUpDate, Double balance, UserType type, String city, byte[] image, String nationalCode, Set<Services> services) {
-        super(firstName, lastName, email, password, signUpDate, balance, type);
+    public Professional(String firstName, String lastName, String email, String password, Date signUpDate, Double balance, Role role, String city, byte[] image, String nationalCode, Set<Services> services) {
+        super(firstName, lastName, email, password, signUpDate, balance, role);
         this.city = city;
         this.image = image;
         this.nationalCode = nationalCode;
