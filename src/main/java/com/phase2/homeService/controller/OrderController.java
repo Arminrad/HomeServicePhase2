@@ -29,10 +29,7 @@ public class OrderController {
     private final DozerBeanMapper mapper;
     private final ModelMapper modelMapper;
 
-    public OrderController(OrderServiceImple orderService,
-                           ServicesServiceImple serviceService,
-                           CustomerServiceImple customerService,
-                           ProfessionalServiceImple professionalService) {
+    public OrderController(OrderServiceImple orderService, ServicesServiceImple serviceService, CustomerServiceImple customerService, ProfessionalServiceImple professionalService) {
         this.orderService = orderService;
         this.serviceService = serviceService;
         this.customerService = customerService;
@@ -59,7 +56,7 @@ public class OrderController {
         Professional professional = professionalService.getById(professionalDto.getId());
         List<Order> orderList = orderService.getByCityAndServiceAndStatus(professional.getCity(), professional.getServices());
         List<OrderDto> orderDtos = new ArrayList<>();
-        for (Order o: orderList) {
+        for (Order o : orderList) {
             OrderDto savedOrderDto = modelMapper.map(o, OrderDto.class);
             orderDtos.add(savedOrderDto);
         }
@@ -71,7 +68,7 @@ public class OrderController {
         Customer customer = customerService.getById(Math.toIntExact(id));
         List<Order> orderList = orderService.getOrdersByCustomer(customer);
         List<OrderDto> orderDtos = new ArrayList<>();
-        for (Order o: orderList) {
+        for (Order o : orderList) {
             OrderDto savedOrderDto = modelMapper.map(o, OrderDto.class);
             orderDtos.add(savedOrderDto);
         }
@@ -79,7 +76,7 @@ public class OrderController {
     }
 
     @GetMapping("/selectOffer")
-    public ResponseEntity<OrderDto> selectOffer(@RequestBody OrderDto orderDto){
+    public ResponseEntity<OrderDto> selectOffer(@RequestBody OrderDto orderDto) {
         Professional professional = professionalService.getById(orderDto.getProfessional_id());
         Order order = orderService.getById(orderDto.getId());
         order.setOrderStatus(OrderStatus.PROFESSIONAL_IS_COMING);
@@ -89,16 +86,14 @@ public class OrderController {
         return ResponseEntity.ok(savedOrderDto);
     }
 
-/*    @GetMapping("/getBalance/{id}")
-    public ResponseEntity<List<OrderDto>> getOrderByCustomer(@PathVariable Long id) {
-        Customer customer = customerService.getById(Math.toIntExact(id));
-        List<Order> orderList = orderService.getOrdersByCustomer(customer);
-        List<OrderDto> orderDtos = new ArrayList<>();
-        for (Order o: orderList) {
-            OrderDto savedOrderDto = modelMapper.map(o, OrderDto.class);
-            orderDtos.add(savedOrderDto);
+    @GetMapping("/takenAndDoneOrders")
+    public ResponseEntity<List<OrderDto>> takenAndDoneOrders() {
+        List<Order> orders = orderService.takenAndDoneOrders();
+        List<OrderDto> ordersDto = new ArrayList<>();
+        for (Order o : orders) {
+            OrderDto orderDto = modelMapper.map(o, OrderDto.class);
+            ordersDto.add(orderDto);
         }
-        return ResponseEntity.ok(orderDtos);
-    }*/
-
+        return ResponseEntity.ok(ordersDto);
+    }
 }

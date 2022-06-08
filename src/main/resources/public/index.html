@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="fa" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>ادمین</title>
+    <title>Home Service</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link href="../static/css/style.css" rel="stylesheet"/>
     <link href="../static/images/favicon.png" rel="icon" sizes="64x64">
@@ -21,47 +21,38 @@
     <tr>
         <td colspan="2">
             <nav dir="ltr" style="background-color: lightsteelblue; height: 40px; width:100%; border-radius: 10px">
+                <a href="customerSignUp.html" target="_blank">
+                    <button style="height: 100%; border: 3px solid tomato; border-radius: 10px " type="button">ثبت نام کاربر</button>
+                </a>
             </nav>
         </td>
     </tr>
     <tr>
-        <td style="width:50%;">
+        <td style="width:20%;">
             <aside dir="rtl" style="background-color: antiquewhite; height: 500px; width: 100%; border-radius: 10px">
-                <a href="../templates/professionalSignUp.html" target="_blank">
+                <a href="professionalSignUp.html" target="_blank">
                     <button style="height: 40px; border: 3px solid tomato; border-radius: 10px" type="button">ثبت نام متخصص</button>
                 </a>
             </aside>
         </td>
-        <td style="width:50%;">
+        <td style="width:80%;">
             <main style="background-color: antiquewhite; height: 500px; width: 100%; border-radius: 10px">
-                <div >
-                    <div >
-                        <br>
-                        <h3 style="text-align: center">افزودن خدمت</h3>
-                        <form action="http://localhost:8080/service/save" method="post">
-                            <div style="text-align: center">
+                <div class="center">
+                    <div class="center">
+                        <h2 style="text-align: center">Sign in</h2>
+                        <form action="http://localhost:8080/customer/save" method="post" enctype="text/plain">
+                            <div >
                                 <label>
-                                    نام خدمت:<br/>
-                                    <input type="text" placeholder="Service Name" name="serviceName">
-                                </label>
-                            </div >
-                            <div style="text-align: center">
-                                <label>
-                                    کمترین قیمت:<br/>
-                                    <input type="number" placeholder="Lowest Price" name="lowestPrice">
+                                    <input type="text" class="form-control" placeholder="Email">
                                 </label>
                             </div>
-                            <div style="text-align: center">
+
+                            <div >
                                 <label>
-                                    دسته ی خدمت:<br/>
-                                    <input type="checkbox" name="parent_id" value="4" > تعمیرات منزل
-                                    <input type="checkbox" name="parent_id" value="2"> دکوراسیون داخلی <br>
+                                    <input type="password" class="form-control" placeholder="Password">
                                 </label>
                             </div>
-                            <div style="text-align: center">
-                                <br>
-                                <button type="submit" >Register</button>
-                            </div>
+                            <button type="submit" class="center-horizontally">Login</button>
                         </form>
                     </div>
                 </div>

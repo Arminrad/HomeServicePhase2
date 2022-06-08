@@ -19,4 +19,6 @@ public interface OrderService {
 
     List<Order> getOrdersByCustomer(Customer customer);
 
+    List<Order> takenAndDoneOrders();
+
 }

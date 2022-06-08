@@ -51,5 +51,10 @@ public class OrderServiceImple implements OrderService {
         return orderRepository.getOrdersByCustomer(customer);
     }
 
+    @Override
+    public List<Order> takenAndDoneOrders() {
+        return orderRepository.takenAndDoneOrders();
+    }
+
 
 }

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html lang="fa">
+<head>
+    <title>پرداخت آنلاین</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="../static/css/style.css" rel="stylesheet"/>
+    <link href="../static/images/favicon.png" rel="icon" sizes="64x64">
+    <link href="webjars/github-com-twbs-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" src="https://code.jquery.com/jquery-3.6.0.slim.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</head>
+
+<body dir="rtl">
+<!--<button onclick="showAlert()">Show alert</button>
+<script src="js/alert.js" type="application/javascript"></script>-->
+
+<table style="width:100%">
+    <tr>
+        <td colspan="2">
+            <header style="background-image:url('../static/images/158939.svg'); background-size: 100% 100% ; border: 3px solid tomato; border-radius: 10px; height: 250px;"></header>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <nav dir="ltr" style="background-color: lightsteelblue; height: 40px; width:100%; border-radius: 10px">
+            </nav>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <main style="background-color: antiquewhite; height: 500px; width: 100%; border-radius: 10px">
+                <div class="center">
+                    <div class="center">
+                        <br>
+                        <h3 style="text-align: center">اطلاعات کارت</h3>
+                        <form action="http://localhost:8080/customer/save" method="post">
+                            <div>
+                                <label>
+                                    شماره کارت:
+                                    <input name="firstName" placeholder="Card No" type="number">
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    CVV2:
+                                    <input name="lastName" placeholder="cvv2" type="text">
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    تاریخ انقضا:
+                                    <input name="month" placeholder="month" type="number">
+                                    <input name="day" placeholder="day" type="number">
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    رمز عبور:
+                                    <input name="password" placeholder="Password" type="password">
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Captcha:
+                                    <input id="captcha" name="t1" readonly type="text" value=" "/>
+                                    <input id="userCaptcha" name="captcha" placeholder="Enter Captcha" type="text">
+                                    <input id="captchaButton" name="b1" style="width: 100%" type="button"
+                                           value="Refresh"/>
+                                </label>
+
+                            </div>
+                            <br><br>
+                            <button class="center-horizontally btn btn-warning" id="registerButton" type="submit" >Register</button>
+                        </form>
+                        <script type="text/javascript">
+                            function captchaCreation() {
+                                let charList = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+                                let captcha = charList[Math.floor(Math.random() * charList.length)];
+                                for (let i = 0; i < 6; i++) {
+                                    captcha = captcha + charList[Math.floor(Math.random() * charList.length)];
+                                }
+                                return captcha;
+                            }
+
+                            /*f1.t1.value = captchaCreation()*/
+                            $('#captcha').val(captchaCreation());
+                            window.onload = captchaCreation();
+
+                            $('#captchaButton').on('click', function () {
+                                $('#captcha').val(captchaCreation());
+                            })
+
+                            $('#registerButton').on('click', function () {
+                                let captcha = $('#captcha').val();
+                                let userCaptcha = $('#userCaptcha').val();
+                                if (captcha !== userCaptcha) {
+                                    event.preventDefault();
+                                    alert('Enter Correct Captcha')
+                                    $('#captcha').val(captchaCreation());
+                                    $('#userCaptcha').val("");
+                                }
+                            })
+
+                            window.onload = function onloadPage() {
+                                setTimeout("window.close()", 600000)
+                            }
+                        </script>
+                    </div>
+                </div>
+            </main>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <footer style="background-color: gray; height: 250px; width: 100%; border-radius: 10px"></footer>
+        </td>
+    </tr>
+</table>
+
+</body>
+
+</html>

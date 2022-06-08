@@ -26,5 +26,5 @@ public class CustomerDto {
     @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.NEW;
     @Enumerated(EnumType.STRING)
-    private Role type = Role.ROLE_CUSTOMER;
+    private Role type = Role.CUSTOMER;
 }

@@ -23,7 +23,7 @@ public class ProfessionalDto {
 /*    @Enumerated(EnumType.STRING)*/
     private UserStatus status = UserStatus.WAITING_FOR_CONFIRMATION;
 /*    @Enumerated(EnumType.STRING)*/
-    private Role type = Role.ROLE_PROFESSIONAL;
+    private Role type = Role.PROFESSIONAL;
 /*    @Column(nullable = false)*/
     private String city;
     private MultipartFile image;

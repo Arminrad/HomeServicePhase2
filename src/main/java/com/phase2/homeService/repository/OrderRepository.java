@@ -22,4 +22,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     //@Query("FROM Order AS o WHERE o.customer = :customer ")
     List<Order> getOrdersByCustomer(Customer customer);
+
+    @Query("select o from Order o where o.orderStatus = 'PROFESSIONAL_IS_COMING' " +
+            "or o.orderStatus = 'ORDER_IS_DONE'")
+    List<Order> takenAndDoneOrders();
 }

@@ -64,7 +64,7 @@ public class ProfessionalServiceImple implements ProfessionalService {
         Professional professional = new Professional(dynamicSearch.getFirstName(),
                 dynamicSearch.getLastName(),
                 dynamicSearch.getEmail(),null,null, null,
-                Role.ROLE_PROFESSIONAL,null,null, null, null);
+                Role.PROFESSIONAL,null,null, null, null);
 
         List<Professional> professionals = professionalRepository.findAll(userSpecification(professional));
         Services services;

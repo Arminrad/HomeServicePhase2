@@ -4,9 +4,10 @@ import com.phase2.homeService.entities.enumeration.UserStatus;
 import com.phase2.homeService.entities.enumeration.Role;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -51,4 +52,5 @@ public class User extends BaseEntity<Integer> {
         this.balance = balance;
         this.role = role;
     }
+
 }

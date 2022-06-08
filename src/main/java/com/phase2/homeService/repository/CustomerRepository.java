@@ -14,4 +14,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>, Jp
 
         @NonNull
         List<Customer> findAll(Specification<Customer> specification);
+
+
+        Customer getCustomerById(Long id);
     }

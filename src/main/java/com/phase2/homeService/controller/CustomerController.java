@@ -5,6 +5,7 @@ import com.phase2.homeService.dto.DynamicSearchDto;
 import com.phase2.homeService.entities.Customer;
 import com.phase2.homeService.service.implementations.CustomerServiceImple;
 import org.dozer.DozerBeanMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -18,9 +19,11 @@ import java.util.List;
 public class CustomerController {
     private final CustomerServiceImple customerService;
     private final DozerBeanMapper mapper;
+    private final ModelMapper modelMapper;
 
-    public CustomerController(CustomerServiceImple customerService) {
+    public CustomerController(CustomerServiceImple customerService, ModelMapper modelMapper) {
         this.customerService = customerService;
+        this.modelMapper = modelMapper;
         this.mapper = new DozerBeanMapper();
     }
 
@@ -42,4 +45,13 @@ public class CustomerController {
         }
         return ResponseEntity.ok(dtoList);
     }
+
+    @GetMapping("/getBalance/{id}")
+    public ResponseEntity<CustomerDto> getOrderByCustomer(@PathVariable Long id) {
+        Customer customer = customerService.getById(Math.toIntExact(id));
+        System.out.println(customer.getBalance());
+            CustomerDto customerDto = modelMapper.map(customer, CustomerDto.class);
+        return ResponseEntity.ok(customerDto);
+    }
+
 }
