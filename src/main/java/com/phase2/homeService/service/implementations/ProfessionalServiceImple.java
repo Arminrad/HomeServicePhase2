@@ -7,6 +7,7 @@ import com.phase2.homeService.entities.enumeration.Role;
 import com.phase2.homeService.repository.ProfessionalRepository;
 import com.phase2.homeService.service.interfaces.ProfessionalService;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -21,14 +22,17 @@ public class ProfessionalServiceImple implements ProfessionalService {
 
     private final ProfessionalRepository professionalRepository;
     private final ServicesServiceImple servicesService;
+    private final PasswordEncoder passwordEncoder;
 
-    public ProfessionalServiceImple(ProfessionalRepository professionalRepository, ServicesServiceImple servicesService) {
+    public ProfessionalServiceImple(ProfessionalRepository professionalRepository, ServicesServiceImple servicesService, PasswordEncoder passwordEncoder) {
         this.professionalRepository = professionalRepository;
         this.servicesService = servicesService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public Professional save(Professional professional) {
+        professional.setPassword(passwordEncoder.encode(professional.getPassword()));
         return professionalRepository.save(professional );
     }
 
@@ -64,7 +68,7 @@ public class ProfessionalServiceImple implements ProfessionalService {
         Professional professional = new Professional(dynamicSearch.getFirstName(),
                 dynamicSearch.getLastName(),
                 dynamicSearch.getEmail(),null,null, null,
-                Role.PROFESSIONAL,null,null, null, null);
+                Role.ROLE_PROFESSIONAL,null,null, null, null);
 
         List<Professional> professionals = professionalRepository.findAll(userSpecification(professional));
         Services services;

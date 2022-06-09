@@ -7,6 +7,7 @@ import com.phase2.homeService.repository.CustomerRepository;
 import com.phase2.homeService.service.interfaces.CustomerService;
 import org.dozer.DozerBeanMapper;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -18,14 +19,18 @@ public class CustomerServiceImple implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final DozerBeanMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public CustomerServiceImple(CustomerRepository customerRepository, DozerBeanMapper mapper) {
+    public CustomerServiceImple(CustomerRepository customerRepository, DozerBeanMapper mapper, PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
         this.mapper = mapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public Customer save(Customer customer) {
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        customer.setRole(Role.ROLE_CUSTOMER);
         return customerRepository.save(customer);
     }
 

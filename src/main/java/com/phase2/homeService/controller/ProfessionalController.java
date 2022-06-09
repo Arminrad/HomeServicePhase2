@@ -49,7 +49,7 @@ public class ProfessionalController {
         Professional professional = new Professional(
                  professionalDto.getFirstName(),  professionalDto.getLastName(),  professionalDto.getEmail(),
                  professionalDto.getPassword(),  null,  100.0,
-                 Role.PROFESSIONAL,  professionalDto.getCity(),
+                 Role.ROLE_PROFESSIONAL,  professionalDto.getCity(),
         professionalDto.getImage().getBytes(),  professionalDto.getNationalCode(),  null);
         return professional;
     }

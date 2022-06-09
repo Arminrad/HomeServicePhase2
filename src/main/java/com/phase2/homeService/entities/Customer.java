@@ -15,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@ToString
 @Entity
 @DiscriminatorValue("customer")
 public class Customer extends User {
@@ -30,5 +29,10 @@ public class Customer extends User {
 
     public Customer(String firstName, String lastName, String email, String password, Date signUpDate, Double balance, Role type) {
         super(firstName, lastName, email, password, signUpDate, balance, type);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + '}';
     }
 }

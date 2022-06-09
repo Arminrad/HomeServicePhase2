@@ -1,7 +1,7 @@
 package com.phase2.homeService.entities.enumeration;
 
 public enum Role {
-    ADMIN,
-    CUSTOMER,
-    PROFESSIONAL
+    ROLE_ADMIN,
+    ROLE_CUSTOMER,
+    ROLE_PROFESSIONAL
 }

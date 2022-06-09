@@ -1,5 +1,6 @@
 package com.phase2.homeService.controller;
 
+import com.phase2.homeService.config.SecurityUtil;
 import com.phase2.homeService.dto.CustomerDto;
 import com.phase2.homeService.dto.DynamicSearchDto;
 import com.phase2.homeService.entities.Customer;
@@ -8,6 +9,7 @@ import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +54,12 @@ public class CustomerController {
         System.out.println(customer.getBalance());
             CustomerDto customerDto = modelMapper.map(customer, CustomerDto.class);
         return ResponseEntity.ok(customerDto);
+    }
+
+    @PreAuthorize("hasRole('CUSTOMER')")
+    @GetMapping("/test")
+    public String test() {
+        return SecurityUtil.getCurrentUser().toString();
     }
 
 }

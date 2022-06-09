@@ -9,6 +9,7 @@ import com.phase2.homeService.service.implementations.CustomerServiceImple;
 import com.phase2.homeService.service.implementations.ProfessionalServiceImple;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,6 +27,7 @@ public class CommentController {
         this.mapper = new DozerBeanMapper();
     }
 
+    @PreAuthorize("hasAnyRole('CUSTOMER', 'PROFESSIONAL')")
     @PostMapping("/save")
     public String save(@ModelAttribute @RequestBody CommentDto commentDto) {
         Customer customer = customerService.getById(commentDto.getCustomer_id());
