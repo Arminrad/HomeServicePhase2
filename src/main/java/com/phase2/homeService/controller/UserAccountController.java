@@ -56,7 +56,7 @@ public class UserAccountController {
             confirmationTokenRepository.save(confirmationToken);
 
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setFrom("aliiireza.vk@gmail.com");
+            mailMessage.setFrom("siavosh.arminrad@gmail.com");
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setText("To confirm your account, please click here : "
