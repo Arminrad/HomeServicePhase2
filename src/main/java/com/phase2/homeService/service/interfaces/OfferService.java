@@ -12,4 +12,6 @@ public interface OfferService {
     Boolean saveAndUpdate(Offer offer, Order order);
 
     List<Offer> getOrderOffers(Integer id);
+
+    Offer getById(Integer id);
 }

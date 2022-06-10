@@ -1,5 +1,6 @@
 package com.phase2.homeService.controller;
 
+import com.phase2.homeService.dto.OrderBasedOnTimePeriodDto;
 import com.phase2.homeService.dto.OrderDto;
 import com.phase2.homeService.dto.ProfessionalDto;
 import com.phase2.homeService.entities.Customer;
@@ -14,6 +15,7 @@ import com.phase2.homeService.service.implementations.ServicesServiceImple;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,7 @@ public class OrderController {
         this.modelMapper = new ModelMapper();
     }
 
+    @PreAuthorize("hasRole('CUSTOMER')")
     @PostMapping("/save")
     public ResponseEntity<OrderDto> save(@RequestBody OrderDto orderDto) {
         Services service = serviceService.getById(orderDto.getService_id());
@@ -50,7 +53,7 @@ public class OrderController {
         return ResponseEntity.ok(savedOrderDto);
     }
 
-    //change get to post**
+    @PreAuthorize("hasRole('PROFESSIONAL')")
     @PostMapping("/getByCityAndService")
     public ResponseEntity<List<OrderDto>> getByCityAndService(@RequestBody ProfessionalDto professionalDto) {
         Professional professional = professionalService.getById(professionalDto.getId());
@@ -63,6 +66,7 @@ public class OrderController {
         return ResponseEntity.ok(orderDtos);
     }
 
+    @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping("/getOrders/{id}")
     public ResponseEntity<List<OrderDto>> getOrderByCustomer(@PathVariable Long id) {
         Customer customer = customerService.getById(Math.toIntExact(id));
@@ -75,6 +79,7 @@ public class OrderController {
         return ResponseEntity.ok(orderDtos);
     }
 
+    @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping("/selectOffer")
     public ResponseEntity<OrderDto> selectOffer(@RequestBody OrderDto orderDto) {
         Professional professional = professionalService.getById(orderDto.getProfessional_id());
@@ -86,6 +91,7 @@ public class OrderController {
         return ResponseEntity.ok(savedOrderDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/takenAndDoneOrders")
     public ResponseEntity<List<OrderDto>> takenAndDoneOrders() {
         List<Order> orders = orderService.takenAndDoneOrders();
@@ -95,5 +101,19 @@ public class OrderController {
             ordersDto.add(orderDto);
         }
         return ResponseEntity.ok(ordersDto);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/timePeriodOrders")
+    public ResponseEntity<List<OrderDto>> timePeriodOrders(@RequestBody OrderBasedOnTimePeriodDto orderBasedOnTimePeriodDto) {
+        List<Order> orders = orderService.ordersOfTimePeriodAndOrderStatusAndServiceName(
+                orderBasedOnTimePeriodDto.getFirstDate(),orderBasedOnTimePeriodDto.getSecondDate(),
+                orderBasedOnTimePeriodDto.getOrderStatus(),orderBasedOnTimePeriodDto.getSpecialtyName());
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        for (Order o:orders) {
+            OrderDto returnedOrderDto = modelMapper.map(o, OrderDto.class);
+            orderDtoList.add(returnedOrderDto);
+        }
+        return ResponseEntity.ok(orderDtoList);
     }
 }

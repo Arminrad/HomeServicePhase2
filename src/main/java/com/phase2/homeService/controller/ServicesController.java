@@ -6,6 +6,7 @@ import com.phase2.homeService.service.implementations.ServicesServiceImple;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,7 @@ public class ServicesController {
         return ResponseEntity.ok(savedServiceDto);
     }*/
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/save", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String save(@ModelAttribute @RequestBody ServicesDto servicesDto, Model model) {
         Services parent = serviceService.getById(servicesDto.getParent_id());

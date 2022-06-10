@@ -39,7 +39,7 @@ public class User extends BaseEntity<Integer> implements UserDetails {
     private UserStatus status = UserStatus.NEW;
     @Enumerated(EnumType.STRING)
     private Role role;
-    private Boolean isEnabled = false;
+    private boolean isEnabled = false;
 
     @Transient
     public String getDiscriminatorValue() {

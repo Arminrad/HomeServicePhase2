@@ -14,7 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@ToString
 @Entity
 @DiscriminatorValue("Professional")
 public class Professional extends User {

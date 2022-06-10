@@ -10,6 +10,7 @@ import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -54,6 +55,11 @@ public class OrderServiceImple implements OrderService {
     @Override
     public List<Order> takenAndDoneOrders() {
         return orderRepository.takenAndDoneOrders();
+    }
+
+    @Override
+    public List<Order> ordersOfTimePeriodAndOrderStatusAndServiceName(Timestamp firstDate, Timestamp secondDate, OrderStatus orderStatus, String serviceName) {
+        return orderRepository.BasedOnTimePeriodAndOrderStatusAndServiceName(firstDate, secondDate, orderStatus, serviceName);
     }
 
 

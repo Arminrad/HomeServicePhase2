@@ -27,7 +27,7 @@ public class CommentController {
         this.mapper = new DozerBeanMapper();
     }
 
-    @PreAuthorize("hasAnyRole('CUSTOMER', 'PROFESSIONAL')")
+    @PreAuthorize("hasRole('CUSTOMER')")
     @PostMapping("/save")
     public String save(@ModelAttribute @RequestBody CommentDto commentDto) {
         Customer customer = customerService.getById(commentDto.getCustomer_id());

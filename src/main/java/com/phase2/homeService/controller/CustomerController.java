@@ -1,10 +1,18 @@
 package com.phase2.homeService.controller;
 
+//import com.phase2.homeService.config.SecurityUtil;
 import com.phase2.homeService.config.SecurityUtil;
+import com.phase2.homeService.dto.AccountCreditPaymentDto;
 import com.phase2.homeService.dto.CustomerDto;
 import com.phase2.homeService.dto.DynamicSearchDto;
+import com.phase2.homeService.dto.OnlinePaymentDto;
 import com.phase2.homeService.entities.Customer;
+import com.phase2.homeService.entities.Offer;
+import com.phase2.homeService.entities.Order;
+import com.phase2.homeService.entities.base.User;
 import com.phase2.homeService.service.implementations.CustomerServiceImple;
+import com.phase2.homeService.service.implementations.OfferServiceImple;
+import com.phase2.homeService.service.implementations.OrderServiceImple;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
@@ -22,10 +30,14 @@ public class CustomerController {
     private final CustomerServiceImple customerService;
     private final DozerBeanMapper mapper;
     private final ModelMapper modelMapper;
+    private final OrderServiceImple orderService;
+    private final OfferServiceImple offerService;
 
-    public CustomerController(CustomerServiceImple customerService, ModelMapper modelMapper) {
+    public CustomerController(CustomerServiceImple customerService, ModelMapper modelMapper, OrderServiceImple orderService, OfferServiceImple offerService) {
         this.customerService = customerService;
         this.modelMapper = modelMapper;
+        this.orderService = orderService;
+        this.offerService = offerService;
         this.mapper = new DozerBeanMapper();
     }
 
@@ -37,6 +49,7 @@ public class CustomerController {
         return "customer";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/gridSearch")
     public ResponseEntity<List<CustomerDto>> gridSearch(@RequestBody DynamicSearchDto dynamicSearch) {
         List<Customer> customerList = customerService.filterCustomer(dynamicSearch);
@@ -48,18 +61,30 @@ public class CustomerController {
         return ResponseEntity.ok(dtoList);
     }
 
+    @PreAuthorize("hasRole('CUSTOMER')")
     @GetMapping("/getBalance/{id}")
     public ResponseEntity<CustomerDto> getOrderByCustomer(@PathVariable Long id) {
         Customer customer = customerService.getById(Math.toIntExact(id));
-        System.out.println(customer.getBalance());
-            CustomerDto customerDto = modelMapper.map(customer, CustomerDto.class);
+        CustomerDto customerDto = modelMapper.map(customer, CustomerDto.class);
         return ResponseEntity.ok(customerDto);
     }
 
-    @PreAuthorize("hasRole('CUSTOMER')")
-    @GetMapping("/test")
-    public String test() {
-        return SecurityUtil.getCurrentUser().toString();
+    //@PreAuthorize("hasRole('CUSTOMER')")
+    @PostMapping("/payment")
+    public ResponseEntity<String> payment(@RequestBody AccountCreditPaymentDto paymentDto) {
+        Order order = orderService.getById(paymentDto.getOrderId());
+        Offer offer = offerService.getById(paymentDto.getOfferId());
+        Customer customer = customerService.getById(paymentDto.getCustomerId());
+        String response = customerService.creditPayment(customer, offer, order);
+        return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasRole('CUSTOMER')")
+    @PostMapping(value = "/onlinePayment")
+    public ResponseEntity<String> onlinePayment(@RequestBody OnlinePaymentDto onlinePaymentDto) {
+        String message = customerService.onlinePayment(onlinePaymentDto.getOrderId(),onlinePaymentDto.getOfferId(),
+                onlinePaymentDto.getCardNumber(),onlinePaymentDto.getCvv2(),
+                onlinePaymentDto.getExpirationDate(),onlinePaymentDto.getSecondPassword());
+        return ResponseEntity.ok(message);
+    }
 }

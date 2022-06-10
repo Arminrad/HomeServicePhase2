@@ -36,6 +36,10 @@ public class ProfessionalServiceImple implements ProfessionalService {
         return professionalRepository.save(professional );
     }
 
+    public Professional saveProfessional(Professional professional) {
+        return professionalRepository.save(professional);
+    }
+
     @Override
     public Professional findByEmail(String email) {
         return professionalRepository.findByEmail(email);

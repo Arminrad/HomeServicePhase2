@@ -9,6 +9,7 @@ import com.phase2.homeService.service.implementations.ProfessionalServiceImple;
 import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,6 +35,7 @@ public class OfferController {
         this.modelMapper = new ModelMapper();
     }
 
+    @PreAuthorize("hasRole('PROFESSIONAL')")
     @PostMapping("/save")
     public ResponseEntity<OfferDto> save(@Valid @RequestBody OfferDto offerDto) {
         Offer offer = mapper.map(offerDto, Offer.class);

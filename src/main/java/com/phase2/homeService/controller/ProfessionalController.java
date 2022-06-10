@@ -11,6 +11,7 @@ import org.dozer.DozerBeanMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -54,6 +55,7 @@ public class ProfessionalController {
         return professional;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getProfessionalsWithNewStatus")
     public ResponseEntity<List<ProfessionalDto>> getProfessionalsWithNewStatus() {
         List<Professional> professionals = professionalService.waitingForConfirmationProfessionals();
@@ -65,11 +67,13 @@ public class ProfessionalController {
         return ResponseEntity.ok(professionalDtoList);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/professionalConfirmation")
     public void professionalConfirmation(@RequestBody ProfessionalDto professionalDto){
         professionalService.updateProfessionalStatus(professionalDto.getId());
     }
 
+    @PreAuthorize("hasRole('PROFESSIONAL')")
     @PutMapping("/updatePassword")
     public ResponseEntity<ProfessionalDto> changePassword(@RequestBody ProfessionalDto professionalDto){
         Professional professional = mapper.map(professionalDto, Professional.class);
@@ -80,6 +84,7 @@ public class ProfessionalController {
         }else return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/gridSearch")
     public ResponseEntity<List<ProfessionalDto>> gridSearch(@RequestBody DynamicSearchDto dynamicSearch) {
         List<Professional> professionalList = professionalService.filterProfessional(dynamicSearch);

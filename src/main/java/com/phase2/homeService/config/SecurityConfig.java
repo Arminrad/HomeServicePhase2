@@ -8,10 +8,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(jsr250Enabled = true, securedEnabled = true, prePostEnabled = true)
@@ -20,10 +18,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //private final CustomUserDetailService customUserDetailService;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final CustomSuccessHandler customSuccessHandler;
 
-    public SecurityConfig(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public SecurityConfig(PasswordEncoder passwordEncoder, UserRepository userRepository, CustomSuccessHandler customSuccessHandler) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.customSuccessHandler = customSuccessHandler;
     }
 
     @Override
@@ -33,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**")
                 .permitAll()
                 .and()
-                .formLogin();
+                .formLogin()
+                .successHandler(customSuccessHandler);
                 //.and()
                 //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

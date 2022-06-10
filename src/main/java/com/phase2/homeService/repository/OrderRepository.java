@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -26,4 +27,11 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("select o from Order o where o.orderStatus = 'PROFESSIONAL_IS_COMING' " +
             "or o.orderStatus = 'ORDER_IS_DONE'")
     List<Order> takenAndDoneOrders();
+
+    @Query("select o from Order o where (o.orderRegistrationDate between :firstDate and :secondDate) " +
+            "and o.orderStatus = :orderStatus and o.service.serviceName = :serviceName")
+    List<Order> BasedOnTimePeriodAndOrderStatusAndServiceName(@Param("firstDate") Timestamp firstDate,
+                                                              @Param("secondDate") Timestamp secondDate,
+                                                              @Param("orderStatus")OrderStatus orderStatus,
+                                                              @Param("serviceName") String serviceName);
 }

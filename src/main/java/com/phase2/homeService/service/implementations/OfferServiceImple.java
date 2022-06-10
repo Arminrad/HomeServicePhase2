@@ -41,6 +41,11 @@ public class OfferServiceImple implements OfferService {
         return null;
     }
 
+    @Override
+    public Offer getById(Integer id) {
+        return offerRepository.getById(id);
+    }
+
 /*    @Override
     public List<Offer> getOrderOffers(Integer id, Sort.by()) {
         return offerRepository.getOrderOffers(id);
