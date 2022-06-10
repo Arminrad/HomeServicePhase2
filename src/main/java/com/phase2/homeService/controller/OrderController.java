@@ -91,7 +91,7 @@ public class OrderController {
         return ResponseEntity.ok(savedOrderDto);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/takenAndDoneOrders")
     public ResponseEntity<List<OrderDto>> takenAndDoneOrders() {
         List<Order> orders = orderService.takenAndDoneOrders();
@@ -103,12 +103,12 @@ public class OrderController {
         return ResponseEntity.ok(ordersDto);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/timePeriodOrders")
     public ResponseEntity<List<OrderDto>> timePeriodOrders(@RequestBody OrderBasedOnTimePeriodDto orderBasedOnTimePeriodDto) {
         List<Order> orders = orderService.ordersOfTimePeriodAndOrderStatusAndServiceName(
                 orderBasedOnTimePeriodDto.getFirstDate(),orderBasedOnTimePeriodDto.getSecondDate(),
-                orderBasedOnTimePeriodDto.getOrderStatus(),orderBasedOnTimePeriodDto.getSpecialtyName());
+                orderBasedOnTimePeriodDto.getOrderStatus(),orderBasedOnTimePeriodDto.getServiceName());
         List<OrderDto> orderDtoList = new ArrayList<>();
         for (Order o:orders) {
             OrderDto returnedOrderDto = modelMapper.map(o, OrderDto.class);

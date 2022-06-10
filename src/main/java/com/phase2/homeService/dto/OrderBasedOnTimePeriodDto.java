@@ -16,5 +16,5 @@ public class OrderBasedOnTimePeriodDto {
     private Timestamp firstDate;
     private Timestamp secondDate;
     private OrderStatus orderStatus;
-    private String specialtyName;
+    private String serviceName;
 }

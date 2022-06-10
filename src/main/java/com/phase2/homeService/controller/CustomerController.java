@@ -79,7 +79,7 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasRole('CUSTOMER')")
+    //@PreAuthorize("hasRole('CUSTOMER')")
     @PostMapping(value = "/onlinePayment")
     public ResponseEntity<String> onlinePayment(@RequestBody OnlinePaymentDto onlinePaymentDto) {
         String message = customerService.onlinePayment(onlinePaymentDto.getOrderId(),onlinePaymentDto.getOfferId(),

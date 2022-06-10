@@ -101,7 +101,7 @@ public class CustomerServiceImple implements CustomerService {
     }
 
     @Override
-    public String onlinePayment(Integer offerId, Integer orderId, String cardNumber, String cvv2, Timestamp expirationDate, String secondPassword) {
+    public String onlinePayment(Integer orderId, Integer offerId, String cardNumber, String cvv2, Timestamp expirationDate, String secondPassword) {
         Order order = orderService.getById(orderId);
         Offer offer = offerService.getById(offerId);
         Long priceOrder = offer.getProposedOfferPrice();
