@@ -17,9 +17,9 @@ import java.util.Optional;
 @Controller
 public class UserAccountController {
 
-    private UserRepository userRepository;
-    private ConfirmationTokenRepository confirmationTokenRepository;
-    private EmailService emailService;
+    private final UserRepository userRepository;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final EmailService emailService;
 
     public UserAccountController(UserRepository userRepository, ConfirmationTokenRepository confirmationTokenRepository, EmailService emailService) {
         this.userRepository = userRepository;
